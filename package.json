@@ -1,0 +1,15 @@
+{
+  "name": "pomodoro",
+  "version": "1.0.0",
+  "description": "Create Pomodoro App for better time management on Electron.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Aleksey Belchenkov",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^8.2.0"
+  }
+}
