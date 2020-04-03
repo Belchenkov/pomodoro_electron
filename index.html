@@ -5,29 +5,62 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css" />
     <title>Pomodoro Electron</title>
-
-    <style>
-        .container {
-            border-radius: 20px;
-            width: 400px;
-            margin: 20px auto;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .clock {
-            border: 1px solid #333;
-            border-radius: 20px;
-            width: 400px;
-            margin: 20px auto;
-            padding: 20px;
-            text-align: center;
-            background: #4da6ff;
-        }
-    </style>
 </head>
 <body>
+    <div class="combo">
+        Please select the number of clocks from the drop down that you want to use and then click Submit.
+        <select name="Number of Clocks" id="clocks">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+        <br /><br />
+        <input
+                type="button"
+                class="text-center"
+                value="Submit"
+                onclick="submit();"
+        />
 
+        <div id="container" class="container">
+            <audio src="assets/alarm.wav" id="audio" autostart="false"></audio>
+        </div>
+
+        <div id="anotherClock" class="text-center mt-1" hidden>
+            <button
+                    id="btnAddClock"
+                    type="button"
+                    onclick="addClock();"
+            >Add another Clock</button>
+        </div>
+    </div>
+
+    <script src="js/index.js"></script>
+    <script type="text/javascript">
+        let id = 0;
+        
+        function submit() {
+            const appendString = document.createElement('div');
+            const totalClock = document.getElementById('clocks');
+            const combo = document.querySelector('.combo');
+            const anotherClock = document.getElementById('anotherClock');
+
+            combo.hidden = true;
+            anotherClock.hidden = false;
+
+            for (let i = 1; i <= totalClock; i++) {
+
+            }
+        }
+    </script>
 </body>
 </html>
