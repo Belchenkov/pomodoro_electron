@@ -1,5 +1,5 @@
 let clockArray = [];
-const currentRunningClock = -1;
+let currentRunningClock = -1;
 
 function ClockObject(bigTime, mode, animation, color, id) {
     let percent, mins, secs, countdownID;
@@ -10,9 +10,9 @@ function ClockObject(bigTime, mode, animation, color, id) {
     this.color = color;
     this.id = id;
 
-    this.minutes = document.getElementById("`minutes_${id}`");
-    this.seconds = document.getElementById("`seconds_${id}`");
-    this.message = document.getElementById("`message_${id}`");
+    this.minutes = document.getElementById(`minutes_${id}`);
+    this.seconds = document.getElementById(`seconds_${id}`);
+    this.message = document.getElementById(`message_${id}`);
 
     this.start = false;
     // 10 minutes
@@ -43,6 +43,47 @@ function counter(clockId) {
         + clockArray[clockId].mins;
     clockArray[clockId].seconds.innerHTML = (clockArray[clockId].secs < 10 ? '0' : '')
         + clockArray[clockId].secs;
+
+    // Switch modes if times ends
+    if (clockArray[clockId].bigTime === 0) {
+        let returnVal = playSound();
+        currentRunningClock = -1;
+
+        clearInterval(clockArray[clockId].countdownID);
+
+        if (returnVal === -1) {
+            alert('Work has been finished for the running clock!');
+        }
+
+        hideClock(clockId);
+    } else {
+        // decrement
+        clockArray[clockId].bigTime = clockArray[clockId].bigTime = -1;
+    }
 }
 
-// Switch modes if times ends
+// Long break
+function counterLongBreak(longClockId) {
+    clockArray[longClockId].mins = Math.floor(clockArray[longClockId].longBreakVal / 60);
+    clockArray[longClockId].secs = clockArray[longClockId].longBreakVal - clockArray[longClockId].mins * 60;
+
+    // Change the HTML to show new minutes and seconds
+    clockArray[longClockId].minutes.innerHTML = (clockArray[longClockId].mins < 10 ? '0' : '') +
+        clockArray[longClockId].mins;
+
+    clockArray[longClockId].seconds.innerHTML = (clockArray[longClockId].secs < 10 ? '0' : '') +
+        clockArray[longClockId].secs;
+
+    // Switch modes if timer ends
+    if (clockArray[longClockId].longBreakVal === 0) {
+        clearInterval(clockArray[longClockId].countdownID);
+        clockArray[longClockId].countdownID = setInterval(() => counter(currentRunningClock), 1000);
+    } else {
+        // Decrement
+        clockArray[longClockId].longBreakVal = clockArray[longClockId].longBreakVal = -1;
+    }
+}
+
+function counterShortBreak() {
+
+}
