@@ -28,7 +28,7 @@
                 type="button"
                 class="text-center"
                 value="Submit"
-                onclick="submit();"
+                onclick="submit()"
         />
 
         <div id="container" class="container">
@@ -117,16 +117,16 @@
                             <span id="middle_${id}">:</span>
                             <span id="seconds_${id}">00</span>
                         </div>
-                        <div id="buttons_' + id + '">
-                            <button id="work_' + id + '" onclick = "startTimer(id)">Start Work</button>
-                            <button id="stop_' + id + '" onclick = "stopTimer(id)">Stop Work</button>
-                             <button id="shortBreak_' + id + '" onclick = "restartTimer(id)">Resume Work</button>
+                        <div id="buttons_${id}">
+                            <button id="work_${id}" onclick = "startTimer(id)">Start Work</button>
+                            <button id="stop_${id}" onclick = "stopTimer(id)">Stop Work</button>
+                             <button id="shortBreak_${id}" onclick = "restartTimer(id)">Resume Work</button>
                         </div>
-                        <div id="secondarybuttons_' + id + '">
-                            <button id="reset_' + id + '" onclick = "resetTimer(id)">Reset</button>
-                            <button id="longBreak_' + id + '" onclick = "longBreak(id)">Long Break</button>
-                            <button id="shortBreak_' + id + '" onclick = "shortBreak(id)">Short Break</button>
-                            <button id="close_' + id + '" onclick = "hideClock(id)">Close</button>
+                        <div id="secondarybuttons_${id}">
+                            <button id="reset_${id}" onclick = "resetTimer(id)">Reset</button>
+                            <button id="longBreak_${id}" onclick = "longBreak(id)">Long Break</button>
+                            <button id="shortBreak_${id}" onclick = "shortBreak(id)">Short Break</button>
+                            <button id="close_${id}" onclick = "hideClock(id)">Close</button>
                         </div>
 
                         </br>

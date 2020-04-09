@@ -84,6 +84,53 @@ function counterLongBreak(longClockId) {
     }
 }
 
-function counterShortBreak() {
+// Short break
+function counterShortBreak(shortClockId) {
+    clockArray[shortClockId].mins = Math.floor(clockArray[shortClockId].shortBreakVal / 60);
+    clockArray[shortClockId].secs = clockArray[shortClockId].shortBreakVal - clockArray[shortClockId].mins * 60;
+
+    // Change the HTML to show new minutes and seconds
+    clockArray[shortClockId].minutes.innerHTML = (clockArray[shortClockId].mins < 10 ? '0' : '') +
+        clockArray[shortClockId].mins;
+
+    clockArray[shortClockId].seconds.innerHTML = (clockArray[shortClockId].secs < 10 ? '0' : '') +
+        clockArray[shortClockId].secs;
+
+    // Switch modes if timer ends
+    if (clockArray[shortClockId].shortBreakVal === 0) {
+        clearInterval(clockArray[shortClockId].countdownID);
+        clockArray[shortClockId].countdownID = setInterval(() => counter(currentRunningClock), 1000);
+    } else {
+        // Decrement
+        clockArray[shortClockId].shortBreakVal = clockArray[shortClockId].shortBreakVal = -1;
+    }
+}
+
+// Actions
+function startTimer(idString) {
+    // extra the integer value from the id of the clock div
+    let clockId = idString.replace(/^\D+/g, '');
+
+    // it means the clock is already in running state
+    if (currentRunningClock === clockId) {
+        alert('The clock is already running. Please click reset if you want to start again of click' +
+            ' restart if you want to restart the previous counter.');
+    }
+
+    if (currentRunningClock === -1) {
+        clockArray[clockId].messageId.innerHTML = 'Clock is running';
+        clockArray[clockId].isStarted = true;
+        currentRunningClock = clockId;
+
+        clockArray[clockId].countdownID = setInterval(() => counter(clockId), 1000);
+        clockArray[clockId].message = 'Slow and steady wins all the time';
+    }
+
+    if (currentRunningClock !== clockId && currentRunningClock !== -1) {
+        alert('Please stop the already running clock to start this one.');
+    }
+}
+
+function restartTimer(idString) {
 
 }
