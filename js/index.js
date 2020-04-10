@@ -132,5 +132,59 @@ function startTimer(idString) {
 }
 
 function restartTimer(idString) {
+    // extract the integer value from id of the clock div
+    const clockRestartedId = idString.replace(/^D+/g);
 
+    // check if the current clock is running and whose timer is going to be reset
+    if (currentRunningClock === clockRestartedId) {
+        if (clockArray[clockRestartedId].isStarted === false) {
+            clockArray[clockRestartedId].messageId.innerHTML = 'Clock is running';
+            clockArray[clockRestartedId].isStarted = true;
+            clearInterval(clockArray[currentRunningClock].countdownID);
+            currentRunningClock = clockRestartedId;
+            clockArray[clockRestartedId].countdownID = setInterval(() => {
+                counter(clockRestartedId) }, 1000
+            );
+        } else {
+            alert('This clock is already running');
+        }
+    } else {
+        alert('This clock is not running');
+    }
+}
+
+function longBreak(idString) {
+    const clockLongBreakId = idString.replace(/^D+/g);
+    clockArray[clockLongBreakId].isStarted = false;
+
+    if (clockLongBreakId === currentRunningClock) {
+        clockArray[clockLongBreakId].messageId.innerHTML = "Long Break";
+        clockArray[clockLongBreakId].longBreakVal = 600;
+        clockArray[clockLongBreakId].shortBreakVal = 300;
+        clearInterval(clockArray[currentRunningClock].countdownID);
+        clockArray[clockLongBreakId].countdownID = setInterval(() => {
+            counterLongBreak(clockLongBreakId)
+            },1000
+        );
+    } else {
+        alert('This clock is not running');
+    }
+}
+
+function shortBreak(idString) {
+    const clockShortBreakId = idString.replace(/^D+/g);
+    clockArray[clockShortBreakId].isStarted = false;
+
+    if (clockShortBreakId === currentRunningClock) {
+        clockArray[clockShortBreakId].messageId.innerHTML = "Short Break";
+        clockArray[clockShortBreakId].longBreakVal = 600;
+        clockArray[clockShortBreakId].shortBreakVal = 300;
+        clearInterval(clockArray[currentRunningClock].countdownID);
+        clockArray[clockShortBreakId].countdownID = setInterval(() => {
+            counterShortBreak(clockShortBreakId)
+            },1000
+        );
+    } else {
+        alert('This clock is not running');
+    }
 }
