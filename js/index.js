@@ -133,7 +133,7 @@ function startTimer(idString) {
 
 function restartTimer(idString) {
     // extract the integer value from id of the clock div
-    const clockRestartedId = idString.replace(/^D+/g);
+    const clockRestartedId = idString.replace(/^\D+/g, '');
 
     // check if the current clock is running and whose timer is going to be reset
     if (currentRunningClock === clockRestartedId) {
@@ -154,7 +154,7 @@ function restartTimer(idString) {
 }
 
 function longBreak(idString) {
-    const clockLongBreakId = idString.replace(/^D+/g);
+    const clockLongBreakId = idString.replace(/^\D+/g, '');
     clockArray[clockLongBreakId].isStarted = false;
 
     if (clockLongBreakId === currentRunningClock) {
@@ -172,7 +172,7 @@ function longBreak(idString) {
 }
 
 function shortBreak(idString) {
-    const clockShortBreakId = idString.replace(/^D+/g);
+    const clockShortBreakId = idString.replace(/^\D+/g, '');
     clockArray[clockShortBreakId].isStarted = false;
 
     if (clockShortBreakId === currentRunningClock) {
@@ -187,4 +187,55 @@ function shortBreak(idString) {
     } else {
         alert('This clock is not running');
     }
+}
+
+function stopTimer(idString) {
+    let clockId = idString.replace(/^D+/g);
+
+    if (clockId === currentRunningClock) {
+        clockArray[clockId].minutes.innerHTML = '25';
+        clockArray[clockId].seconds.innerHTML = '00';
+
+        clearInterval(clockArray[clockId].countdownID);
+        clockArray[clockId].bigTime = 1499;
+        // -1 means no clock is running
+        currentRunningClock = -1;
+    }
+    else {
+        clockId = currentRunningClock;
+        alert("this clock is not running");
+    }
+}
+
+// reset timer
+function resetTimer(idString) {
+    //extract the integer value from id of the clock div
+    const clockResetId = idString.replace(/^\D+/g, '');
+
+    clockArray[clockResetId].bigTime = 1499;
+    clockArray[clockResetId].minutes.innerHTML = "25";
+    clockArray[clockResetId].seconds.innerHTML = "00";
+
+    if (currentRunningClock > 0) {
+        clearInterval(clockArray[currentRunningClock].countdownID);
+    }
+
+    currentRunningClock = -1;
+}
+
+function hideClock(idString) {
+    const closeId = "clock_" + idString.replace(/^\D+/g, '');
+    const closeClockId = idString.replace(/^\D+/g, '');
+
+    if (currentRunningClock == closeClockId) {
+        currentRunningClock = -1;
+    }
+    document.getElementById(closeId).style.display = "none";
+}
+
+
+function playSound() {
+    const sound = document.getElementById("audio");
+    sound.play();
+    return 1;
 }
