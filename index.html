@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Pomodoro Clock: Electron</title>
+</head>
+<body>
+    <div class="combo">
+        Please select the number of clocks from the drop down that you want to use and then click Submit.
+        <select name="Number of Clocks" id="clocks">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+        <br /><br />
+        <input
+                type="button"
+                class="text-center"
+                value="Submit"
+                onclick="submit()"
+        />
+    </div>
+
+    <div id="container" class="container">
+        <audio src="assets/alarm.wav" id="audio" autostart="false"></audio>
+    </div>
+
+    <div id="anotherClock" class="text-center mt-1" hidden>
+        <button
+                id="btnAddClock"
+                type="button"
+                onclick="addClock()"
+        >Add another Clock</button>
+    </div>
+
+    <script src="js/index.js"></script>
+    <script type="text/javascript">
+        let id = 0;
+
+        function submit() {
+            let appendString = document.createElement('div');
+            let totalClock = document.getElementById('clocks');
+            let combo = document.querySelector('.combo');
+            let anotherClock = document.getElementById('anotherClock');
+
+            combo.hidden = true;
+            anotherClock.hidden = false;
+
+            for (let i = 1; i <= totalClock; i++) {
+                appendString = document.createElement('div');
+                let id = i;
+
+                appendString.innerHTML = `
+                    <div id="clock_${id}" class="clock">
+                        <div id="message_${id}"></div>
+                        <div id="timer_${id}">
+                            <span id="minutes_${id}">25</span>
+                            <span id="middle_${id}">:</span>
+                            <span id="seconds_${id}">00</span>
+                        </div>
+                    </div>
+                    <div id="buttons_${id}">
+                        <button id="work_${id}" onclick="startTimer(id)">
+                            Start Work
+                        </button>
+                        <button id="stop_${id}" onclick = "stopTimer(id)">
+                            Stop Work
+                        </button>
+                        <button id="shortBreak_${id}" onclick = "restartTimer(id)">
+                            Resume Work
+                        </button>
+                        <div>
+                            <div id="secondarybuttons_${id}"></div>
+                            <button id="reset_${id}" onclick="resetTimer(id)">
+                                Reset
+                            </button>
+                            <button id="longBreak_${id}" onclick="longBreak(id)">
+                                Long Break
+                            </button>
+                            <button id="shortBreak_${id}" onclick="shortBreak(id)">
+                                Short Break
+                            </button>
+                            <button id="close_${id}" onclick="hideClock(id)">
+                                Close
+                            </button>
+                        </div>
+                        </br>
+                        </div>
+                    </div>
+                `;
+
+                 const div = document.getElementById('container');
+                 div.appendChild(appendString);
+                 initElements(id);
+            }
+
+            function addClock() {
+                id++;
+                appendString = null;
+                appendString=document.createElement("div");
+                appendString.innerHTML =`
+                    <div id="clock_${id}" class="clock">
+                        <div id="message_${id}"></div>
+                        <div id="timer_${id}">
+                            <span id="minutes_${id}">25</span>
+                            <span id="middle_${id}">:</span>
+                            <span id="seconds_${id}">00</span>
+                        </div>
+                        <div id="buttons_${id}">
+                            <button id="work_${id}" onclick = "startTimer(id)">Start Work</button>
+                            <button id="stop_${id}" onclick = "stopTimer(id)">Stop Work</button>
+                             <button id="shortBreak_${id}" onclick = "restartTimer(id)">Resume Work</button>
+                        </div>
+                        <div id="secondarybuttons_${id}">
+                            <button id="reset_${id}" onclick = "resetTimer(id)">Reset</button>
+                            <button id="longBreak_${id}" onclick = "longBreak(id)">Long Break</button>
+                            <button id="shortBreak_${id}" onclick = "shortBreak(id)">Short Break</button>
+                            <button id="close_${id}" onclick = "hideClock(id)">Close</button>
+                        </div>
+
+                        </br>
+                    </div>`;
+
+                const div = document.getElementById('container');
+
+                document.createElement("div");
+                div.appendChild(appendString);
+                initElements(id);
+            }
+        }
+    </script>
+</body>
+</html>
