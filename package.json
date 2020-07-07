@@ -10,6 +10,6 @@
   "author": "Aleksey Belchenkov",
   "license": "ISC",
   "dependencies": {
-    "electron": "^8.2.0"
+    "electron": "^8.2.4"
   }
 }
